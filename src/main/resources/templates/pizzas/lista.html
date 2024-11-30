@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head th:insert="~{pedidos/he_fo_ad::head}"></head>
+    <body class="d-flex flex-column min-vh-100"> <!-- flex y min-vh-100 para que el body ocupe toda la altura -->
+        <div th:insert="~{pedidos/he_fo_ad::header}"></div>
+
+        <main class="flex-grow-1">
+            <div class="container mt-4 my-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <h1>Lista de Pizzas</h1>
+                        <a th:href="@{/pizzas/nueva}" class="btn btn-outline-info mb-3"><i class="fa-regular fa-bookmark"></i> Nueva Pizza</a>
+                        <table class="table">
+                            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Tipo</th>
+                                    <th>#</th>
+                                    <th>#</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="pizza : ${pizzas}">
+                                    <td th:text="${pizza.nombre}"></td>
+                                    <td th:text="${pizza.precio} + ' soles'"></td>
+                                    <td th:text="${pizza.tipos}"></td>
+                                    <td>
+                                        <a th:href="@{/pizzas/editar/{id}(id=${pizza.id})}" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pen"></i> Editar</a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/pizzas/eliminar/{id}(id=${pizza.id})}" class="btn btn-outline-danger btn-sm"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+                                    </td>
+                                    <td>
+                                        <form th:action="@{/pizzas/toggle/{id}(id=${pizza.id})}" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-sm"
+                                                    th:classappend="${pizza.habilitada} ? 'btn-outline-dark' : 'btn-outline-success'">
+                                                <span>
+                                                    <i th:classappend="${pizza.habilitada} ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+                                                    <span th:text="${pizza.habilitada} ? 'Deshabilitar' : 'Habilitar'"></span>
+                                                </span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div th:insert="~{pedidos/he_fo_ad::footer}"></div>
+    </body>
+</html>

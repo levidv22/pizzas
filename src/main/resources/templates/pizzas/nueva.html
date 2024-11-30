@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head th:insert="~{pedidos/he_fo_ad::head}"></head>
+    <body class="d-flex flex-column min-vh-100"> <!-- flex y min-vh-100 para que el body ocupe toda la altura -->
+        <div th:insert="~{pedidos/he_fo_ad::header}"></div>
+
+        <main class="flex-grow-1">
+            <div class="container mt-4 my-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 d-flex justify-content-end">
+                        <!-- Cuadro con sombra y bordes ovalados -->
+                        <div class="p-4 shadow-lg" style="border-radius: 20px; max-width: 400px;">
+                            <h1>Nueva Pizza</h1>
+                            <form th:action="@{/pizzas}" th:object="${pizza}" method="post">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" id="nombre" name="nombre" class="form-control" th:field="*{nombre}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="precio" class="form-label">Precio</label>
+                                    <input type="number" id="precio" name="precio" class="form-control" th:field="*{precio}" step="0.01" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tipos" class="form-label">Tipo</label>
+                                    <input type="text" id="tipos" name="tipos" class="form-control" th:field="*{tipos}" required>
+                                </div>
+                                <button type="submit" class="btn btn-outline-info"><i class="fa-regular fa-share-from-square"></i> Guardar Pizza</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div th:insert="~{pedidos/he_fo_ad::footer}"></div>
+    </body>
+</html>
